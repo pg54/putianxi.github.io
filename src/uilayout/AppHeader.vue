@@ -95,7 +95,7 @@
         }
 
         .main-header .nav-right.is-active .nav-item {
-            background-color: #E0504A;
+            background-color: blue;
         }
 
         .main-header .nav-right.is-active .nav-item .button{

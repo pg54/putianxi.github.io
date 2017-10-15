@@ -1,4 +1,6 @@
 <template>
+<div class='hospitalInfos'>
+    <div class='dragger' @mousedown='draggerMousedown($event)'></div>
     <area-select-box></area-select-box>
 
     <div v-if="totalPage">
@@ -7,36 +9,15 @@
                       :hospital-info="hospital"
         >
         </hospital-box >
-
-        <div class="columns is-mobile card-pagination">
-            <div class="column">
-                <a class="button"
-                   :class=" {'is-disabled' : currentPage === 1 }"
-                   @click="updatePageList('prev')"
-                >
-                    上一页
-                </a>
-            </div>
-            <div class="column">
-                <h2 class="pagination-title">{{ currentPage }} / {{ totalPage }} </h2>
-            </div>
-            <div class="column">
-                <a class="button is-info is-pulled-right"
-                   :class=" {'is-disabled' : currentPage === totalPage }" 
-                   @click="updatePageList('next')"
-                >
-                    下一页
-                </a>
-            </div>
-        </div>
     </div>
 
     <div v-else class="safe-area">
         <h4>
-            <span class="icon"><i class="fa fa-check"></i></span>此地区暂时安全
+            <span class="icon"><i class="fa fa-check"></i></span>此地区暂时没有项目
         </h4>
     </div>
 
+</div>
 </template>
 
 <script>
@@ -80,7 +61,8 @@
                 this.totalPage = Math.ceil(this.hospital_list.length / LIST_MAX_LEN);
 
                 // update show list
-                this.refreshShowList();
+                // this.refreshShowList();
+                this.hospital_show_list = this.hospital_list.slice(0, this.hospital_list.length);
             },
             updatePageList(direction) {
                 if(direction === 'prev') {
@@ -112,6 +94,22 @@
                 }
                 
             },
+            draggerMousedown(ev) {
+                let dragger = document.querySelector('.dragger');
+                console.log(dragger);
+
+                console.log(ev);
+              dragger.onMouseMove = function (ev) {
+                console.log('onMouseMove')
+              }
+
+
+
+                
+            },
+            draggerMousemove(ev) {
+                console.log(ev);
+            }
         },
         ready() {
             this.initListenMsg();
@@ -120,6 +118,17 @@
 </script>
 
 <style>
+    .hospitalInfos {
+        height: 250px;
+        overflow-y: scroll;
+    }
+    .dragger {
+        width: 100%;
+        height: 50px;
+        background: #EDEDED
+    
+    }
+
     .card-pagination .button {
         border-radius: 2px;
     }

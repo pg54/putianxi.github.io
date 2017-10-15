@@ -1,0 +1,21 @@
+<div class="columns is-mobile card-pagination">
+    <div class="column">
+        <a class="button"
+           :class=" {'is-disabled' : currentPage === 1 }"
+           @click="updatePageList('prev')"
+        >
+            上一页
+        </a>
+    </div>
+    <div class="column">
+        <h2 class="pagination-title">{{ currentPage }} / {{ totalPage }} </h2>
+    </div>
+    <div class="column">
+        <a class="button is-info is-pulled-right"
+           :class=" {'is-disabled' : currentPage === totalPage }" 
+           @click="updatePageList('next')"
+        >
+            下一页
+        </a>
+    </div>
+</div>
