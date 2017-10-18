@@ -1,9 +1,7 @@
 <template>
     <div class="control has-icon" id="main-search">
-        <input class="input" type="text" placeholder="搜索莆田系医院、所在城市等" v-model="query"
-               @keydown.down="down" @keydown.up="up" @keydown.enter="hit" 
-               @keydown.tab.prevent="down" @keydown.esc="reset" 
-               @blur="reset" @input="update"
+        <input class="input" type="text" placeholder="搜索项目" v-model="query"
+               @keyup="keyUp" @keyup.enter="searchNow"
         >
         <i class="fa fa-search"></i>
         <i class="fa fa-times icon-close" 
@@ -11,86 +9,63 @@
            @click="resetSearch()"
         ></i>
 
-        <ul v-show="hasItems" class="search-list">
+        <!-- <ul v-show="hasItems" class="search-list">
             <li v-for="item in items" :class="activeClass($index)" 
                 @mousedown.prevent="hit" @mousemove="setActive($index)">
-                {{ item.properties.name }}
+
+                {{ item.name }}
+
             </li>
-        </ul>
+        </ul> -->
+
+
     </div>
 </template>
 
 <script>
-    import Bloodhound from 'bloodhound-js';
+    // import Bloodhound from 'bloodhound-js';
     import messageBus from '../utilities/messageBus.js'
-    import VueTypeahead from '../utilities/VueTypeahead.js'
+    // import VueTypeahead from '../utilities/VueTypeahead.js'
+    import Wade from 'wade'
 
     export default {
-        extends: VueTypeahead,
+        // extends: VueTypeahead,
         data() {
             return {
-                engine: null,
+                engine: [],
                 query: '',
                 limit: 5,
                 minChars: 2,
             }
         },
 
-        methods: {
-            // for Bloodhound.js
-            datumTokenizerIndex(obj){
-                let tokens = [];
+        methods: { 
 
-                // setting keywords minCharts
-                let minSize = 2;
-
-                //the available string is 'name' in your datum
-                let stringSize = obj.properties.name.length;
-                //multiple combinations for every available size
-                //(eg. dog = d, o, g, do, og, dog)
-                for (let size = minSize; size <= stringSize; size++) {
-                    for (let i = 0; i+size<= stringSize; i++) {
-                        tokens.push(obj.properties.name.substr(i, size));
-                    }
-                }
-                return tokens;
-            },
-            // for Bloodhound.js
-            initSearchEngine() {
-                this.engine = new Bloodhound({
-                    // identify: (obj) => { return obj.properties.name; },
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    datumTokenizer: this.datumTokenizerIndex,
-                });
-            },
             // init Bloodhound data
             initListenMsg() {
                 messageBus.$on('searchbox-data-init', (search_data) => {
-                    this.engine.add(search_data.features);
+                    this.engine.push(search_data);
+                    console.log('engine');
+                    console.log(this.engine);
                 });
             },
+            keyUp() {
+                console.log('keyUp');
+            },
+            searchNow() {
+                console.log('aEngine');
+                console.log(this.engine);
+                var newEngine = this.engine.filter(ele => ele.name.indexOf(this.query) > -1);
+                console.log(newEngine);
+                
+            },
 
-            // implements VueTypeahead onHit()
-            onHit(item) {
-                if(item) {
-                    // set ui
-                    this.reset();
-                    this.query = item.properties.name;
-                    
-                    // update map data, need geojson format
-                    let map_data = {
-                        type: 'FeatureCollection',
-                        features: []
-                    }
-                    map_data.features.push(item);
-                    messageBus.$emit('map-data-update', map_data);
-                }
-            }
         },
         ready() {
-            this.initSearchEngine();
+            console.log(Wade);
             this.initListenMsg();
         }
+
     }
 </script>
 

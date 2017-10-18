@@ -17,7 +17,8 @@
     "leaflet": "^1.0.0-rc.3",
     "leaflet.markercluster": "^1.0.0-rc.1.0",
     "vue": "^1.0.0",
-    "vue-resource": "^0.9.3"
+    "vue-resource": "^0.9.3",
+    "vue1-baidu-map": "^2.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

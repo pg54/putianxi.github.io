@@ -8,7 +8,8 @@
             </div>
             <div class="media-content">
                 <div class="content hospital-name">
-                    <h4>
+
+                    <!-- <h4>
                         <a @click.prevent="updateMapData(hospitalInfo)">
                             {{ hospitalInfo.properties.name }}
                         </a>
@@ -21,7 +22,18 @@
                             {{ hospitalInfo.properties.address }}
                         </span>
                     </p>
-                    <p><strong>电话:</strong>{{ hospitalInfo.properties.phone | phoneFilter}}</p>
+                    <p><strong>电话:</strong>{{ hospitalInfo.properties.phone | phoneFilter}}</p> -->
+
+                    <h4>
+                        <a @click.prevent="updateMapData(hospitalInfo)">
+                            {{ hospitalInfo.name }}
+                        </a>
+                    </h4>
+                    <p><strong>项目负责人:</strong>{{ hospitalInfo.projectManagerName }}</p>
+                    <p class="tooltip"><strong>开工日期:</strong>{{ hospitalInfo.startDate }}
+                    </p>
+                    <p><strong>竣工日期:</strong>{{ hospitalInfo.completionDate }}</p>
+
                 </div>
             </div>
         </article>
