@@ -62,10 +62,31 @@
                     this.totalPage = 1;
 
                     // update list
-                    console.log('map_data');
-                    console.log(map_data);
                     this.genHosptialList(map_data);
                 });
+                messageBus.$on('map-data-searchResult', (map_data) => {
+                    // restore page
+                    this.currentPage = 1;
+                    this.totalPage = 1;
+                    console.log('map_data');
+                    console.log(map_data);
+
+                    // update list
+                    // this.genHosptialList(map_data);
+                });
+
+                messageBus.$on('area-select-update', (select_area) => {
+                    console.log('select_area');
+                    this.currentPage = 1;
+                    this.totalPage = 1;
+
+                    // update list
+                    this.genHosptialList(select_area);
+                    // this.filterSelectData(select_area);
+                });
+
+
+                messageBus.$on('map-data-searchResult',)
             },
             genHosptialList(map_data) {
                 // clear old list
@@ -78,7 +99,6 @@
                 for (let el of map_data) {
                     this.hospital_list.push(el);
                 }
-                console.log(this.hospital_list);
 
                 // update totalPage
                 this.totalPage = Math.ceil(this.hospital_list.length / LIST_MAX_LEN);

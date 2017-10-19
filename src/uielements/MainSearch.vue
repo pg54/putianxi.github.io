@@ -45,24 +45,27 @@
             initListenMsg() {
                 messageBus.$on('searchbox-data-init', (search_data) => {
                     this.engine.push(search_data);
-                    console.log('engine');
-                    console.log(this.engine);
                 });
             },
             keyUp() {
                 console.log('keyUp');
             },
             searchNow() {
-                console.log('aEngine');
-                console.log(this.engine);
-                var newEngine = this.engine.filter(ele => ele.name.indexOf(this.query) > -1);
-                console.log(newEngine);
-                
+                console.log('engine');
+                console.log(this.engine[0]);
+
+                let bar = this.engine[0].filter(ele => ele.name.indexOf(this.query) > -1)
+                console.log(bar);
+
+                messageBus.$emit('area-select-update', bar);
             },
+            resetSearch() {
+                this.query = '';
+            }
 
         },
         ready() {
-            console.log(Wade);
+            // console.log(Wade);
             this.initListenMsg();
         }
 
@@ -80,7 +83,7 @@
     }
 
     #main-search input:focus {
-        border: 1px solid #ed6c63;
+        border: 1px solid #42afe3;
     }
 
     #main-search i.icon-close {

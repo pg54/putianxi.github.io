@@ -2,28 +2,16 @@
     <div class="box hospital-box">
         <article class="media">
             <div class="media-left">
-                <figure class="image is-64x64">
+                <!-- <figure class="image is-64x64">
                     <img src="../../assets/images/common/hospital.png" alt="Image">
-                </figure>
+                </figure> -->
+                <div class='is-64x64'>
+                    <i class="fa fa-home fa-5x" aria-hidden="true" style='color: #42afe3'></i>
+                </div>
+                
             </div>
             <div class="media-content">
                 <div class="content hospital-name">
-
-                    <!-- <h4>
-                        <a @click.prevent="updateMapData(hospitalInfo)">
-                            {{ hospitalInfo.properties.name }}
-                        </a>
-                    </h4>
-                    <p><strong>地区:</strong>{{ hospitalInfo.properties.city }}{{ hospitalInfo.properties.district }}</p>
-                    <p class="tooltip"><strong>地址:</strong>{{ hospitalInfo.properties.address | addressFilter }}
-                        <span class="tooltiptext tooltip-top"
-                              v-if="hospitalInfo.properties.address.length > 12"
-                        >
-                            {{ hospitalInfo.properties.address }}
-                        </span>
-                    </p>
-                    <p><strong>电话:</strong>{{ hospitalInfo.properties.phone | phoneFilter}}</p> -->
-
                     <h4>
                         <a @click.prevent="updateMapData(hospitalInfo)">
                             {{ hospitalInfo.name }}
