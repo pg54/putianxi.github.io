@@ -1,8 +1,11 @@
 <template>
+<div class="mainContent">
     <main-search></main-search>
     <!-- <leaflet-map></leaflet-map> -->
     <div id="bMap"></div>
     <!-- <baidu-map-test></baidu-map-test> -->
+</div>
+
 
 </template>
 
@@ -200,8 +203,12 @@
 </script>
 
 <style scoped>
-    #bMap {
-        width: 100%;
-        height: 50vh;
-    }
+.mainContent {
+    width: 100%;
+    height: 50vh;
+}
+#bMap {
+    width: 100%;
+    height: calc( 50vh - 32px);
+}
 </style>

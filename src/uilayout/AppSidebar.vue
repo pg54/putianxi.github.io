@@ -1,6 +1,22 @@
 <template>
     <div class='hospitalInfos'>
         <!-- <area-select-box></area-select-box> -->
+        // <div id="dragArea" @mousedown='mousedown($event)'>
+        //     drag
+        // </div>
+
+        <vue-touch 
+            @panmove="handlePanMove"
+            @panend="handlePanEnd"
+            :enabled="{ pan: true, tap: false }"
+            :pan-options="panOptions">
+            <div
+                class="app-sidebar-swipe"
+                id="dragArea"
+                :class="{'app-sidebar-swipe-right': slideFrom !== 'left'}">
+            </div>
+        </vue-touch>
+
 
         <div v-if="totalPage">
 
@@ -44,7 +60,8 @@
     export default {
         components: {
             HospitalBox,
-            AreaSelectBox
+            AreaSelectBox,
+            VueTouch
         },
         data() {
             return {
@@ -52,6 +69,9 @@
                 hospital_show_list: [],
                 currentPage: 1,
                 totalPage: 1,
+                panOptions: {
+
+                }
             };
         },
         methods: {
@@ -86,7 +106,7 @@
                 });
 
 
-                messageBus.$on('map-data-searchResult',)
+                messageBus.$on('map-data-searchResult', )
             },
             genHosptialList(map_data) {
                 // clear old list
@@ -134,7 +154,32 @@
                     this.hospital_show_list = this.hospital_list.slice(slice_start, slice_end);
                 }
 
+            },
+            mousemove(ev) {
+                console.log('拖动中');
+                console.log(ev);
+                // var dx = e.clientX - initialMouseX;
+                // var dy = e.clientY - initialMouseY;
+                // el.style.top = startY + dy + 'px';
+                // el.style.left = startX + dx + 'px';
+                // return false;
+            },
+            mouseup(ev) {
+                document.removeEventListener('mousemove', mousemove);
+                document.removeEventListener('mouseup', mouseup);
+            },
+            mousedown(ev) {
+                console.log(ev);
+                let el = ev.target;
+                // let startX = el.offsetLeft;
+                // let startY = el.offsetTop;
+                // let initialMouseX = e.clientX;
+                // let initialMouseY = e.clientY;
+                el.addEventListener('mousemove', mousemove);
+                el.addEventListener('mouseup', mouseup);
+
             }
+
         },
         ready() {
             this.initListenMsg();
@@ -144,8 +189,15 @@
 
 <style>
     .hospitalInfos {
-        height: 40vh;
+        height: 50vh;
         overflow-y: scroll;
+    }
+
+    #dragArea {
+        width: 100%;
+        height: 40px;
+        background: #E6E6E6;
+        text-align: center;
     }
 
 
