@@ -1,22 +1,9 @@
 <template>
     <div class='hospitalInfos'>
         <!-- <area-select-box></area-select-box> -->
-        // <div id="dragArea" @mousedown='mousedown($event)'>
-        //     drag
-        // </div>
-
-        <vue-touch 
-            @panmove="handlePanMove"
-            @panend="handlePanEnd"
-            :enabled="{ pan: true, tap: false }"
-            :pan-options="panOptions">
-            <div
-                class="app-sidebar-swipe"
-                id="dragArea"
-                :class="{'app-sidebar-swipe-right': slideFrom !== 'left'}">
-            </div>
-        </vue-touch>
-
+        <div id="dragArea" @mousedown='mousedown($event)'>
+            drag
+        </div>
 
         <div v-if="totalPage">
 
@@ -60,8 +47,7 @@
     export default {
         components: {
             HospitalBox,
-            AreaSelectBox,
-            VueTouch
+            AreaSelectBox
         },
         data() {
             return {

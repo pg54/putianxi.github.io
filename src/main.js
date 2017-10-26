@@ -5,10 +5,10 @@ import AppLayout from './uilayout/AppLayout.vue'
 import AppContent from './uilayout/AppContent.vue'
 import AppSidebar from './uilayout/AppSidebar.vue'
 // import AppFooter from './uilayout/AppFooter.vue'
-import VueTouch from './vue-touch'
+// import VueTouch from 'vue-touch';
 
 Vue.use(VueResource)
-Vue.use(VueTouch)
+// Vue.use(VueTouch)
 
 Vue.directive('draggable', {
     bind: function (el) {
